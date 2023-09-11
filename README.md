@@ -1,1 +1,2 @@
-# tp2_junit_etudiant
+# tp2_junit
+**Cours qualité de développement**
