@@ -5,9 +5,11 @@ package fr.einfolearning.tp2.metiers;///////////////////////////////////////////
 //
 ////////////////////////////////////////////////////////////////
 
+import fr.einfolearning.tp2.metiers.interfaces.ITextBuffer;
+
 import java.lang.StringBuffer;
 
-public class TextBuffer {
+public class TextBuffer implements ITextBuffer {
 
     private StringBuffer sb;
 

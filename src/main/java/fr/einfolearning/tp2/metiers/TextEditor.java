@@ -5,27 +5,39 @@ package fr.einfolearning.tp2.metiers;///////////////////////////////////////////
 ////////////////////////////////////////////////////////////////
 
 import fr.einfolearning.tp2.metiers.exceptions.EmacsKillRingOverflowException;
+import fr.einfolearning.tp2.metiers.interfaces.IEmacsKillRing;
+import fr.einfolearning.tp2.metiers.interfaces.ITextBuffer;
 
 import java.lang.IllegalAccessException;
 
 public class TextEditor {
 
-    private TextBuffer buffer;     // text buffer
-    private EmacsKillRing emacsKillring; // killring
+    private ITextBuffer buffer;     // text buffer
+    private IEmacsKillRing emacsKillring; // killring
     private int cursor, mark;   // cursor and mark position
     private boolean yankMode;   // true if yankpop can be called
     private int yankLeft, yankRight; // last section yanked
 
     ////////////////////////////////////////////////////////////////
 
-    public TextEditor(String s) {
-        buffer = new TextBuffer(s);
-        emacsKillring = new EmacsKillRing();
+    public TextEditor() {
         cursor = 0;
         mark = -1; // must be changed before manipulation
         yankMode = false;
         yankLeft = -1;
         yankRight = -1;
+    }
+
+
+    public TextEditor(ITextBuffer textBuffer, IEmacsKillRing emacsKillRing) {
+        //buffer = new TextBuffer(s);
+        //emacsKillring = new EmacsKillRing();
+        this.buffer = textBuffer;
+        this.emacsKillring = emacsKillRing;
+    }
+
+    public TextEditor(String s) {
+        this(new TextBuffer(s), new EmacsKillRing());
     }
 
     ////////////////////////////////////////////////////////////////
@@ -103,5 +115,12 @@ public class TextEditor {
         else mark = pos;
     }
 
+    public void setBuffer(ITextBuffer buffer) {
+        this.buffer = buffer;
+    }
+
+    public void setEmacsKillring(IEmacsKillRing emacsKillring) {
+        this.emacsKillring = emacsKillring;
+    }
 }
 
