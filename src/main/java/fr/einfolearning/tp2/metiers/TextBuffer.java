@@ -1,15 +1,15 @@
 package fr.einfolearning.tp2.metiers;////////////////////////////////////////////////////////////////
-//
-// td3.Buffer with possibilities of insertion or destruction of
-// substrings. 
-//
-////////////////////////////////////////////////////////////////
-
-import fr.einfolearning.tp2.metiers.interfaces.ITextBuffer;
 
 import java.lang.StringBuffer;
 
-public class TextBuffer implements ITextBuffer {
+
+
+/**
+ * Classe TextBuffer
+ * Buffer offrant des fonctionnalités d'insertion et de destruction de sous-chaines
+ * @version 2023
+ */
+public class TextBuffer {
 
     private StringBuffer sb;
 

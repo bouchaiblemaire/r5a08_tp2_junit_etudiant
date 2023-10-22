@@ -1,26 +1,27 @@
 package fr.einfolearning.tp2.metiers;////////////////////////////////////////////////////////////////
-//
-// td3.Editor class, mixing a td3.Buffer and a td3.KillRing
-//
-////////////////////////////////////////////////////////////////
 
 import fr.einfolearning.tp2.metiers.exceptions.EmacsKillRingOverflowException;
-import fr.einfolearning.tp2.metiers.interfaces.IEmacsKillRing;
-import fr.einfolearning.tp2.metiers.interfaces.ITextBuffer;
 
 import java.lang.IllegalAccessException;
 
+/**
+ * Classe TextEditor simulant un éditeur Emacs
+ * @version 2023
+ */
 public class TextEditor {
 
-    private ITextBuffer buffer;     // text buffer
-    private IEmacsKillRing emacsKillring; // killring
+    private TextBuffer buffer;     // text buffer
+    private EmacsKillRing emacsKillring; // killring
     private int cursor, mark;   // cursor and mark position
+
     private boolean yankMode;   // true if yankpop can be called
     private int yankLeft, yankRight; // last section yanked
 
     ////////////////////////////////////////////////////////////////
 
-    public TextEditor() {
+    public TextEditor(String s) {
+        buffer = new TextBuffer(s);
+        emacsKillring = new EmacsKillRing();
         cursor = 0;
         mark = -1; // must be changed before manipulation
         yankMode = false;
@@ -28,21 +29,20 @@ public class TextEditor {
         yankRight = -1;
     }
 
-
-    public TextEditor(ITextBuffer textBuffer, IEmacsKillRing emacsKillRing) {
-        //buffer = new TextBuffer(s);
-        //emacsKillring = new EmacsKillRing();
-        this.buffer = textBuffer;
-        this.emacsKillring = emacsKillRing;
-    }
-
-    public TextEditor(String s) {
-        this(new TextBuffer(s), new EmacsKillRing());
-    }
-
     ////////////////////////////////////////////////////////////////
 
-    // Colle le block courant de emacsKillRing à la position courante de l'editeur
+
+    /**
+     * Mode yank
+     * Permet de coller l'élément courant de la file circulaire à la position
+     * courante du curseur
+     *
+     * Le mot inséré est marqué avec les curseurs yankLeft(yL) et yankRight(yR)
+     *
+     * Dans ce mode on peut faire  suivre un yank de plusieurs  yankPop
+     *
+     * @throws IllegalAccessException
+     */
     public void yank() throws IllegalAccessException {
         String s;
         if (emacsKillring.isEmpty())
@@ -59,6 +59,16 @@ public class TextEditor {
         buffer.ins(s, yankLeft);
     }
 
+
+    /**
+     * Permet de substituer le mot marqué (yank mode) dans le buffer de l'éditeur de texte par le prochain
+     * élement qui se trouve dans la file circulaire
+     *
+     * Un yankPop doit-être précédé d'un yank c'est à dire qu'une zone doit-être marqué
+     * par les curseurs yankLeft et yankRight
+     *
+     * @throws IllegalAccessException
+     */
     public void yankPop() throws IllegalAccessException {
         String s;
         if (!yankMode) // throw exception if not in yank mode
@@ -73,7 +83,11 @@ public class TextEditor {
         buffer.ins(s, yankLeft);
     }
 
-    // sauve une section sans la detruire de l'editeur de texte
+
+    /**
+     * Sauve une section de l'éditeur de texte marquée à l'aide du curseur
+     * et de de la marque de fin de zone
+     */
     public void killRingBackup() throws EmacsKillRingOverflowException {
         try {
             String s = buffer.substr(Math.min(cursor, mark),
@@ -85,7 +99,12 @@ public class TextEditor {
     }
 
 
-    // sauve et detruit une region de l'editeur de texte
+
+    /**
+     * Coupe et sauve une section de l'éditeur de texte marquée à l'aide du curseur
+     * et de de la marque de fin de zone
+     * @throws EmacsKillRingOverflowException
+     */
     public void killSection() throws EmacsKillRingOverflowException {
         yankMode = false;
         killRingBackup();
@@ -101,6 +120,9 @@ public class TextEditor {
         return (s);
     }
 
+    public TextBuffer getTextBuffer(){
+        return this.buffer;
+    }
     public void setCursor(int pos) {
         yankMode = false;
         if ((pos < 0) || (pos >= buffer.maxP()))
@@ -115,12 +137,24 @@ public class TextEditor {
         else mark = pos;
     }
 
-    public void setBuffer(ITextBuffer buffer) {
-        this.buffer = buffer;
+    public int getCursor() {
+        return cursor;
     }
 
-    public void setEmacsKillring(IEmacsKillRing emacsKillring) {
-        this.emacsKillring = emacsKillring;
+    public int getMark() {
+        return mark;
+    }
+
+    public boolean isYankMode() {
+        return yankMode;
+    }
+
+    public int getYankLeft() {
+        return yankLeft;
+    }
+
+    public int getYankRight() {
+        return yankRight;
     }
 }
 

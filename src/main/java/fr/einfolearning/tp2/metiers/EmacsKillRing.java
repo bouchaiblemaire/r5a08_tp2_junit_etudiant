@@ -1,17 +1,18 @@
 package fr.einfolearning.tp2.metiers;////////////////////////////////////////////////////////////////
-//
-// Killring (mécanisme qu'utilise emacs pour sauvegarder les blocks de textes
-// qui ont été effacé)
-//
-////////////////////////////////////////////////////////////////
 
 import fr.einfolearning.tp2.metiers.exceptions.EmacsKillRingOverflowException;
-import fr.einfolearning.tp2.metiers.interfaces.IEmacsKillRing;
 
 import java.util.LinkedList;
 import java.nio.BufferOverflowException;
 
-public class EmacsKillRing implements IEmacsKillRing {
+/**
+ * Classe EmacsKillRing
+ * File circulaire "Killring" offrant un mécanisme qu'utilise emacs pour sauvegarder les blocks de textes qui
+ * ont été coupés dans un texte
+ *
+ * @version 2023
+ */
+public class EmacsKillRing {
 
     private LinkedList<String> block;
     private int entry;
