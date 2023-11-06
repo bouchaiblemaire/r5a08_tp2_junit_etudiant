@@ -6,12 +6,10 @@ package fr.einfolearning.tp2.metiers;///////////////////////////////////////////
 ////////////////////////////////////////////////////////////////
 
 import fr.einfolearning.tp2.metiers.exceptions.EmacsKillRingOverflowException;
-import fr.einfolearning.tp2.metiers.interfaces.IEmacsKillRing;
 
 import java.util.LinkedList;
-import java.nio.BufferOverflowException;
 
-public class EmacsKillRing implements IEmacsKillRing {
+public class EmacsKillRing {
 
     private LinkedList<String> block;
     private int entry;

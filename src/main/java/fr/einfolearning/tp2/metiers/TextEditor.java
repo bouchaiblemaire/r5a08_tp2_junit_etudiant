@@ -5,15 +5,13 @@ package fr.einfolearning.tp2.metiers;///////////////////////////////////////////
 ////////////////////////////////////////////////////////////////
 
 import fr.einfolearning.tp2.metiers.exceptions.EmacsKillRingOverflowException;
-import fr.einfolearning.tp2.metiers.interfaces.IEmacsKillRing;
-import fr.einfolearning.tp2.metiers.interfaces.ITextBuffer;
 
 import java.lang.IllegalAccessException;
 
 public class TextEditor {
 
-    private ITextBuffer buffer;     // text buffer
-    private IEmacsKillRing emacsKillring; // killring
+    private TextBuffer buffer;     // text buffer
+    private EmacsKillRing emacsKillring; // killring
     private int cursor, mark;   // cursor and mark position
     private boolean yankMode;   // true if yankpop can be called
     private int yankLeft, yankRight; // last section yanked
@@ -29,7 +27,7 @@ public class TextEditor {
     }
 
 
-    public TextEditor(ITextBuffer textBuffer, IEmacsKillRing emacsKillRing) {
+    public TextEditor(TextBuffer textBuffer, EmacsKillRing emacsKillRing) {
         //buffer = new TextBuffer(s);
         //emacsKillring = new EmacsKillRing();
         this.buffer = textBuffer;
@@ -115,11 +113,11 @@ public class TextEditor {
         else mark = pos;
     }
 
-    public void setBuffer(ITextBuffer buffer) {
+    public void setBuffer(TextBuffer buffer) {
         this.buffer = buffer;
     }
 
-    public void setEmacsKillring(IEmacsKillRing emacsKillring) {
+    public void setEmacsKillring(EmacsKillRing emacsKillring) {
         this.emacsKillring = emacsKillring;
     }
 }
