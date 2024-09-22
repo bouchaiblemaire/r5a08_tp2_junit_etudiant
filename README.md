@@ -1,4 +1,11 @@
-# tp1_junit
-**Cours qualité de développement**
+# tp3_junit
+## R54A08
+## Cours qualité de développement en BUT3**
 
-Sujet pour le travail pratique n°1
+**Etude de cas : Tests de composants logiciels**
+
+  * Tests unitaires
+  * Tests d'intégration
+
+
+
