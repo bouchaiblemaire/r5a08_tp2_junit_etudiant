@@ -10,11 +10,12 @@ public class EmacsAnalyze {
 
     /**
      * Méthode utilitaire permettant d'analyser le contenu du buffer de l'editeur de texte
-     * avec la position des différents curseurs
-     * @param ed (TextEditeur)
-     * @param insIndex (boolean) : true affiche l'index des caractères, sinon pas d'affichage
+     * <BR>avec la position des différents curseurs
+     * @param ed (TextEditeur) : Editeur de texte à analyser
+     * @param isIndex (boolean) : true affiche l'index des caractères, false sinion
+     * @param isLegend (boolean) : Affichage de la légende
      */
-    public static void dumpTextEditor(TextEditor ed, boolean insIndex) {
+    public static void dumpTextEditor(TextEditor ed, boolean isIndex, boolean isLegend) {
         int yankLeft;
         int cursor;
         int i;
@@ -25,7 +26,8 @@ public class EmacsAnalyze {
         yankLeft = ed.getYankLeft();
         yankRight = ed.getYankRight();
         mark= ed.getMark();
-
+        System.out.println("Dump");
+        System.out.print("TextEditor :");
         stringInEdBuffer = ed.getTextBuffer().toString();
         i=0;
         for (char c : stringInEdBuffer.toCharArray()){
@@ -42,10 +44,24 @@ public class EmacsAnalyze {
 
 
 
-            if (insIndex) System.out.print("("+ i +") ");
+            if (isIndex) System.out.print("("+ i +") ");
             i = i + 1;
 
         }
+
         System.out.println();
+        System.out.print("TextBuffer[EmacsKillRing][entry in EmacsKillRing] :");
+        System.out.println(ed.getBuffer());
+        if (isLegend) {
+            System.out.println();
+            System.out.println();
+
+            System.out.println("Légendes :");
+            System.out.println("[C]    : Curseur");
+            System.out.println("[M]    : Marqueur de zone");
+            System.out.println("[*YL*] : Délimiteur gauche pour une opération de yank");
+            System.out.println("[*YR*] : Délimiteur gauche pour une opération de yank");
+        }
+        System.out.println("_____________________________________________________________");
     }
 }
